@@ -1,0 +1,37 @@
+#qt
+#c-compiler
+# gdal>=3     # for ISCE, ARIA, FRInGE, HyP3, GMTSAR users
+#isce2
+argcomplete
+bokeh
+boto3
+botocore
+cartopy
+cvxopt
+cython
+dask>=1.0
+dask-jobqueue>=0.3
+defusedxml
+fringe
+h5py
+joblib
+lxml
+matplotlib
+mintpy
+# MinSAR dependencies
+natsort
+numpy
+pdbpp
+pre-commit    # for developers
+pulp
+pyaps3>=0.3
+pykml>=0.2
+pyproj
+pyresample
+pysolid
+rich
+scikit-image
+scipy
+setuptools
+shapely
+utm

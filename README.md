@@ -43,3 +43,5 @@ test.ipynb
 ``
 
 Just open it and run it to verify you have a working isce2 environment.
+
+![](jupyter-notebook.png)

@@ -51,4 +51,14 @@ in pkgs.mkShell rec {
     unset SOURCE_DATE_EPOCH
   '';
 
+  PROJECT_ROOT = builtins.getEnv "PWD";
+
+  shellHook = ''
+    # Make sure you have run setup.sh the first time you install 
+    export ISCE_HOME=${PROJECT_ROOT}/isce2-build
+    export PATH=$ISCE_HOME/applications:$PATH
+    ./setup.sh
+    python test.py
+  '';
+
 }

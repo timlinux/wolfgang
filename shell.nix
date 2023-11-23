@@ -1,7 +1,12 @@
-with import <nixpkgs> { };
-
+#with import <nixpkgs> { };
 let
-  pythonPackages = python3Packages;
+  # 
+  # Note that I am using a specific version from NixOS here because of 
+  # https://github.com/NixOS/nixpkgs/issues/267916#issuecomment-1817481744
+  #
+  nixpkgs = builtins.fetchTarball "https://github.com/NixOS/nixpkgs/archive/5751ca54362d36af0227e8931c78cc91934c60e3.tar.gz";
+  pkgs = import nixpkgs { config = { }; overlays = [ ]; };
+  pythonPackages = pkgs.python311Packages;
 in pkgs.mkShell rec {
   name = "impurePythonEnv";
   venvDir = "./.venv";
@@ -16,26 +21,27 @@ in pkgs.mkShell rec {
 
     # Those are dependencies that we would like to use from nixpkgs, which will
     # add them to PYTHONPATH and thus make them accessible from within the venv.
+    pkgs.openssl
+    pkgs.git
+    pkgs.libxml2
+    pkgs.libxslt
+    pkgs.libzip
+    pkgs.zlib
+    pkgs.gnused
+    pythonPackages.cython
     pythonPackages.numpy
-    openssl
-    git
-    libxml2
-    libxslt
-    libzip
-    zlib
-    gnused
-    python311Packages.cython
-    python311Packages.numpy
-    python311Packages.setuptools
-    python311Packages.gdal
-    python311Packages.jupyterlab
-    python311Packages.ipympl
-    cmake
-    gfortran9
-    fftw
-    fftwFloat
-    motif
-    opencv
+    pythonPackages.setuptools
+    pythonPackages.gdal
+    # Currently broken, see requirements.txt rather
+    pythonPackages.jupyterhub 
+    pythonPackages.ipympl
+    pythonPackages.pyppeteer # for pdf export of jupyter notebook
+    pkgs.cmake
+    pkgs.gfortran9
+    pkgs.fftw
+    pkgs.fftwFloat
+    pkgs.motif
+    pkgs.opencv
   ];
 
   # Run this command, only after creating the virtual environment

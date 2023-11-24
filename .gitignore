@@ -151,3 +151,6 @@ docs/src/img/.$ProjectPlanning.drawio.bkp
 *.dtmp
 Untitled*
 fringe*
+snafu-build
+snaphu-build/
+snaphu-v1.4.2*

@@ -64,7 +64,7 @@ in pkgs.mkShell rec {
     # Make sure you have run setup.sh the first time you install 
     export ISCE_HOME=${PROJECT_ROOT}/isce2-build
     export PATH=$ISCE_HOME/applications:$PATH
-    export PATH=$PATH:$ISCE_HOME/bin:$ISCE_HOME/applications:${PROJECT_ROOT}/fringe-build/bin
+    export PATH=$PATH:$ISCE_HOME/bin:$ISCE_HOME/applications:${PROJECT_ROOT}/fringe-build/bin:${PROJECT_ROOT}/snafu-build/
     export PYTHONPATH=$PYTHONPATH:${PROJECT_ROOT}/fringe-build/python
     export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:${PROJECT_ROOT}/fringe-build/lib
     ./setup.sh

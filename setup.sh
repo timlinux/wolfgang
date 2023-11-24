@@ -12,4 +12,11 @@ cmake .. -DCMAKE_INSTALL_PREFIX=../../isce2-build/
 make install
 cd ..
 cd ..
+# fringe
 
+git clone https://github.com/isce-framework/fringe.git
+cd fringe
+mkdir build
+cd build/
+cmake .. -DCMAKE_INSTALL_PREFIX=../../fringe-build/
+make install

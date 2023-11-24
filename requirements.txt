@@ -12,7 +12,6 @@ cython
 dask>=1.0
 dask-jobqueue>=0.3
 defusedxml
-fringe
 h5py
 joblib
 lxml

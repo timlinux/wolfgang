@@ -9,7 +9,6 @@
 #  pythonPackages = pkgs.python311Packages;
 
 with import <nixpkgs> { };
-
 let
   pythonPackages = python3Packages;
 in pkgs.mkShell rec {
@@ -54,7 +53,6 @@ in pkgs.mkShell rec {
     motif
     opencv
   ];
-
   # Run this command, only after creating the virtual environment
   postVenvCreation = ''
     unset SOURCE_DATE_EPOCH

@@ -34,3 +34,4 @@ scipy
 setuptools
 shapely
 utm
+jupyterlab

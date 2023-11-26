@@ -16,6 +16,17 @@ If you do not have direnv, install the nix package manger (https://nixos.org/dow
 
 I have not tested on other OS, but if you have ubuntu, it should set everything up for you. But use NixOS....it should work without issue.
 
+## Known issues
+
+Currently there is a strange compilation error when building relating to missing Screenwriter.h
+
+Actually the file is there and you can trivially resolve the issue by doing:
+
+```
+cd isce2/build/
+make
+```
+
 ## What will get installed?
 
 The ``setup.sh`` script will install these:
@@ -23,6 +34,7 @@ The ``setup.sh`` script will install these:
 - ✅MINOPY (now known as MiaplPy)
 - ✅ISCE (based on setup notes [here](https://github.com/isce-framework/isce2)),
 - ✅FRINGE,
+- ✅SNAPHU
 
 Afterwards you can check the install by doing
 

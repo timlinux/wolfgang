@@ -24,7 +24,7 @@ Actually the file is there and you can trivially resolve the issue by doing:
 
 ```
 cd isce2/build/
-make
+make install
 ```
 
 ## What will get installed?

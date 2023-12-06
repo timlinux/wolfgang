@@ -10,6 +10,9 @@
 
 with import <nixpkgs> { };
 let
+  # For packages pinned to a specific version
+  pinnedHash = "933d7dc155096e7575d207be6fb7792bc9f34f6d"; 
+  pinnedPkgs = import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/${pinnedHash}.tar.gz") { };
   pythonPackages = python3Packages;
 in pkgs.mkShell rec {
   name = "impurePythonEnv";
@@ -26,15 +29,15 @@ in pkgs.mkShell rec {
     # Those are dependencies that we would like to use from nixpkgs, which will
     # add them to PYTHONPATH and thus make them accessible from within the venv.
     pythonPackages.numpy
-    armadillo # needed for fringe lib
-    blas # needed for fringe lib
-    openssl
-    git
-    libxml2
-    libxslt
-    libzip
-    zlib
-    gnused
+    pinnedPkgs.armadillo # needed for fringe lib
+    pinnedPkgs.blas # needed for fringe lib
+    pinnedPkgs.openssl
+    pinnedPkgs.git
+    pinnedPkgs.libxml2
+    pinnedPkgs.libxslt
+    pinnedPkgs.libzip
+    pinnedPkgs.zlib
+    pinnedPkgs.gnused
     pythonPackages.pip
     pythonPackages.cython
     pythonPackages.numpy
@@ -43,15 +46,15 @@ in pkgs.mkShell rec {
     pythonPackages.pybind11
     #python311Packages.jupyterlab
     pythonPackages.ipympl
-    cmake
-    pkg-config
-    xorg.libX11
-    xorg.libX11.dev
-    gfortran9
-    fftw
-    fftwFloat
-    motif
-    opencv
+    pinnedPkgs.cmake
+    pinnedPkgs.pkg-config
+    pinnedPkgs.xorg.libX11
+    pinnedPkgs.xorg.libX11.dev
+    pinnedPkgs.gfortran9
+    pinnedPkgs.fftw
+    pinnedPkgs.fftwFloat
+    pinnedPkgs.motif
+    pinnedPkgs.opencv
   ];
   # Run this command, only after creating the virtual environment
   postVenvCreation = ''

@@ -25,6 +25,7 @@ Actually the file is there and you can trivially resolve the issue by doing:
 ```
 cd isce2/build/
 make install
+cd ../..
 ```
 
 ## What will get installed?

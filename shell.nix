@@ -25,7 +25,7 @@ in pkgs.mkShell rec {
     # This executes some shell code to initialize a venv in $venvDir before
     # dropping into the shell
     pythonPackages.venvShellHook
-
+    pinnedPkgs.virtualenv
     # Those are dependencies that we would like to use from nixpkgs, which will
     # add them to PYTHONPATH and thus make them accessible from within the venv.
     pythonPackages.numpy

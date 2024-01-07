@@ -154,3 +154,10 @@ fringe*
 snafu-build
 snaphu-build/
 snaphu-v1.4.2*
+
+SAR_SMM
+data/sentinel/
+jupyterhub.sqlite
+jupyterhub_config.py
+jupyterhub_cookie_secret
+shell.nix_

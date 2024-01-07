@@ -43,6 +43,8 @@ Afterwards you can check the install by doing
 
 ## Running in jupyter notebook
 
+Currently does not work.
+
 You can start the notebook like this:
 
 ``jupyter notebook``

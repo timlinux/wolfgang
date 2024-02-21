@@ -55,6 +55,11 @@ in pkgs.mkShell rec {
     pinnedPkgs.fftwFloat
     pinnedPkgs.motif
     pinnedPkgs.opencv
+    pinnedPkgs.vim
+    pinnedPkgs.git
+    pinnedPkgs.wget
+    pinnedPkgs.screen
+    pinnedPkgs.gotop
   ];
   # Run this command, only after creating the virtual environment
   postVenvCreation = ''

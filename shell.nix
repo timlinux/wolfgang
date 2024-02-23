@@ -77,14 +77,14 @@ in pkgs.mkShell rec {
   PROJECT_ROOT = builtins.getEnv "PWD";
 
   shellHook = ''
-    # Make sure you have run setup.sh the first time you install 
     export ISCE_HOME=${PROJECT_ROOT}/isce2-build
     export PATH=$ISCE_HOME/applications:$PATH
+    export ISCE_STACK=${PROJECT_ROOT}/isce2/contrib/stack
     export PATH=$PATH:$ISCE_HOME/bin:$ISCE_HOME/applications:${PROJECT_ROOT}/fringe-build/bin:${PROJECT_ROOT}/snaphu-build/
-    export PYTHONPATH=$PYTHONPATH:${PROJECT_ROOT}/isce2-build/packages:${PROJECT_ROOT}/fringe-build/python
+    export PYTHONPATH=$PYTHONPATH:${PROJECT_ROOT}/isce2-build/packages:${PROJECT_ROOT}/fringe-build/python:$ISCE_STACK
     export PATH=$PATH:${PROJECT_ROOT}/isce2-build/packages/isce/applications/
     # This needs to be last to shadow out scripts with duplicate names
-    export PATH=$PATH:${PROJECT_ROOT}/isce2/contrib/stack/stripmapStack
+    export PATH=$PATH:$ISCE_STACK/topsStack
     export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:${PROJECT_ROOT}/fringe-build/lib
     ./setup.sh
     python test.py

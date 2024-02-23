@@ -35,3 +35,5 @@ setuptools
 shapely
 utm
 jupyterlab
+# sentinel download
+sentineleof

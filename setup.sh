@@ -27,6 +27,6 @@ cd ..
 
 # snaphu
 wget https://step.esa.int/thirdparties/snaphu/1.4.2-2/snaphu-v1.4.2_linux.zip
-unzip snaphu-v1.4.2_linux.zip
+unzip -o snaphu-v1.4.2_linux.zip
 # verify snaphu
 snaphu

@@ -10,7 +10,7 @@ mkdir build
 cd build
 cmake .. -DCMAKE_INSTALL_PREFIX=../../isce2-build/
 # This line a dirty hack to solve the Screenwriter.h missing
-make 
+make
 # Running again should fix it....
 make install
 cd ..
@@ -26,14 +26,7 @@ cd ..
 cd ..
 
 # snaphu
-mkdir snaphu-build
-wget http://web.stanford.edu/group/radar/softwareandlinks/sw/snaphu/snaphu-v1.4.2.tar.gz
-tar xfz snaphu-v1.4.2.tar.gz
-cp snaphu_makefile snaphu-v1.4.2/src/Makefile 
-cd snaphu-v1.4.2
-cd src/
-make install
-cd ..
-cd ..
+wget https://step.esa.int/thirdparties/snaphu/1.4.2-2/snaphu-v1.4.2_linux.zip
+unzip snaphu-v1.4.2_linux.zip
 # verify snaphu
 snaphu

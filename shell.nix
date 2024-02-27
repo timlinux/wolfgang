@@ -44,7 +44,6 @@ in pkgs.mkShell rec {
     pythonPackages.setuptools
     pythonPackages.gdal
     pythonPackages.pybind11
-    pythonPackages.scipy
     #python311Packages.jupyterlab
     pythonPackages.ipympl
     pinnedPkgs.cmake

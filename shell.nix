@@ -44,6 +44,7 @@ in pkgs.mkShell rec {
     pythonPackages.setuptools
     pythonPackages.gdal
     pythonPackages.pybind11
+    pythonPackages.scipy
     #python311Packages.jupyterlab
     pythonPackages.ipympl
     pinnedPkgs.cmake
@@ -60,7 +61,6 @@ in pkgs.mkShell rec {
     pinnedPkgs.wget
     pinnedPkgs.screen
     pinnedPkgs.gotop
-    pinnedPkgs.zlib
   ];
   # Run this command, only after creating the virtual environment
   postVenvCreation = ''
@@ -86,7 +86,7 @@ in pkgs.mkShell rec {
     export PATH=$PATH:${PROJECT_ROOT}/isce2-build/packages/isce/applications/
     # This needs to be last to shadow out scripts with duplicate names
     export PATH=$PATH:$ISCE_STACK/topsStack
-    export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:${PROJECT_ROOT}/fringe-build/lib:${stdenv.cc.cc.lib}/lib/
+    export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:${PROJECT_ROOT}/fringe-build/lib:${stdenv.cc.cc.lib}/lib/:${pkgs.lib.makeLibraryPath buildInputs}:${pkgs.stdenv.cc.cc.lib.outPath}
     ./setup.sh
     python test.py
   '';

@@ -62,9 +62,32 @@ in pkgs.mkShell rec {
     pinnedPkgs.gotop
   ];
   # Run this command, only after creating the virtual environment
+  PROJECT_ROOT = builtins.getEnv "PWD";
+
   postVenvCreation = ''
     unset SOURCE_DATE_EPOCH
     pip install -r requirements.txt
+    echo "#!/usr/bin/env bash" > environment.sh
+    echo "export ISCE_HOME=${PROJECT_ROOT}/isce2-build" >> environment.sh
+    echo "export PATH=$ISCE_HOME/applications:$PATH" >> environment.sh
+    echo "export ISCE_STACK=${PROJECT_ROOT}/isce2/contrib/stack" >> environment.sh
+
+    echo "export PATH=$PATH:$ISCE_HOME/bin:$ISCE_HOME/applications:${PROJECT_ROOT}/fringe-build/bin:${PROJECT_ROOT}/snaphu-build/" >> environment.sh
+
+    echo "export PYTHONPATH=$PYTHONPATH:${PROJECT_ROOT}/isce2-build/packages:${PROJECT_ROOT}/fringe-build/python:$ISCE_STACK" >> environment.sh
+
+    echo "export PATH=$PATH:${PROJECT_ROOT}/isce2-build/packages/isce/applications/" >> environment.sh
+
+    echo "# This needs to be last to shadow out scripts with duplicate names" >> environment.sh
+
+    echo "export PATH=$PATH:$ISCE_STACK/topsStack" >> environment.sh
+
+    echo "export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:${PROJECT_ROOT}/fringe-build/lib:${stdenv.cc.cc.lib}/lib/:${pkgs.lib.makeLibraryPath buildInputs}:${pkgs.stdenv.cc.cc.lib.outPath}" >> environment.sh
+    chmod +x environment.sh
+    source environment.sh
+    ./setup.sh
+    python test.py
+
   '';
 
   # Now we can execute any commands within the virtual environment.
@@ -74,20 +97,5 @@ in pkgs.mkShell rec {
     unset SOURCE_DATE_EPOCH
   '';
 
-  PROJECT_ROOT = builtins.getEnv "PWD";
-
-  shellHook = ''
-    export ISCE_HOME=${PROJECT_ROOT}/isce2-build
-    export PATH=$ISCE_HOME/applications:$PATH
-    export ISCE_STACK=${PROJECT_ROOT}/isce2/contrib/stack
-    export PATH=$PATH:$ISCE_HOME/bin:$ISCE_HOME/applications:${PROJECT_ROOT}/fringe-build/bin:${PROJECT_ROOT}/snaphu-build/
-    export PYTHONPATH=$PYTHONPATH:${PROJECT_ROOT}/isce2-build/packages:${PROJECT_ROOT}/fringe-build/python:$ISCE_STACK
-    export PATH=$PATH:${PROJECT_ROOT}/isce2-build/packages/isce/applications/
-    # This needs to be last to shadow out scripts with duplicate names
-    export PATH=$PATH:$ISCE_STACK/topsStack
-    export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:${PROJECT_ROOT}/fringe-build/lib:${stdenv.cc.cc.lib}/lib/:${pkgs.lib.makeLibraryPath buildInputs}:${pkgs.stdenv.cc.cc.lib.outPath}
-    ./setup.sh
-    python test.py
-  '';
 
 }

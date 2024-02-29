@@ -84,6 +84,7 @@ in pkgs.mkShell rec {
 
     echo "export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:${PROJECT_ROOT}/fringe-build/lib:${stdenv.cc.cc.lib}/lib/:${pkgs.lib.makeLibraryPath buildInputs}:${pkgs.stdenv.cc.cc.lib.outPath}" >> environment.sh
     echo "export PATH=$PATH:`pwd`/snaphu-build" >> environment.sh
+    echo "export PATH=$PATH:`pwd`/$ISCE_STACK/topsStack" >> environment.sh
     chmod +x environment.sh
     source environment.sh
     ./setup.sh

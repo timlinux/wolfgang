@@ -67,14 +67,15 @@ in pkgs.mkShell rec {
   postVenvCreation = ''
     unset SOURCE_DATE_EPOCH
     pip install -r requirements.txt
+    export ISCE_HOME=${PROJECT_ROOT}/isce2-build
     export PATH=$ISCE_HOME/applications:$PATH
-    export ISCE_STACK=$PWD/isce2/contrib/stack
-    export PATH=$PATH:$ISCE_HOME/bin:$ISCE_HOME/applications:$PWD/fringe-build/bin:$PWD/snaphu-build/
-    export PYTHONPATH=$PYTHONPATH:$PWD/isce2-build/packages:$PWD/fringe-build/python:$ISCE_STACK
-    export PATH=$PATH:$PWD/isce2-build/packages/isce/applications/
+    export ISCE_STACK=${PROJECT_ROOT}/isce2/contrib/stack
+    export PATH=$PATH:$ISCE_HOME/bin:$ISCE_HOME/applications:${PROJECT_ROOT}/fringe-build/bin:${PROJECT_ROOT}/snaphu-build/
+    export PYTHONPATH=$PYTHONPATH:${PROJECT_ROOT}/isce2-build/packages:${PROJECT_ROOT}/fringe-build/python:$ISCE_STACK
+    export PATH=$PATH:${PROJECT_ROOT}/isce2-build/packages/isce/applications/
     # This needs to be last to shadow out scripts with duplicate names
     export PATH=$PATH:$ISCE_STACK/topsStack
-    export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$PWD/fringe-build/lib:${stdenv.cc.cc.lib}/lib/
+    export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:${PROJECT_ROOT}/fringe-build/lib:${stdenv.cc.cc.lib}/lib/:${pkgs.lib.makeLibraryPath buildInputs}:${pkgs.stdenv.cc.cc.lib.outPath}
     ./setup.sh
     python test.py
 

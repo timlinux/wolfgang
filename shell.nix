@@ -1,6 +1,6 @@
 #let
-#  # 
-#  # Note that I am using a specific version from NixOS here because of 
+#  #
+#  # Note that I am using a specific version from NixOS here because of
 #  # https://github.com/NixOS/nixpkgs/issues/267916#issuecomment-1817481744
 #  #
 #  nixpkgs = builtins.fetchTarball "https://github.com/NixOS/nixpkgs/archive/nixos-22.11.tar.gz";
@@ -11,7 +11,7 @@
 with import <nixpkgs> { };
 let
   # For packages pinned to a specific version
-  pinnedHash = "933d7dc155096e7575d207be6fb7792bc9f34f6d"; 
+  pinnedHash = "933d7dc155096e7575d207be6fb7792bc9f34f6d";
   pinnedPkgs = import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/${pinnedHash}.tar.gz") { };
   pythonPackages = python3Packages;
 in pkgs.mkShell rec {
@@ -67,15 +67,20 @@ in pkgs.mkShell rec {
   postVenvCreation = ''
     unset SOURCE_DATE_EPOCH
     pip install -r requirements.txt
-    export ISCE_HOME=${PROJECT_ROOT}/isce2-build
-    export PATH=$ISCE_HOME/applications:$PATH
-    export ISCE_STACK=${PROJECT_ROOT}/isce2/contrib/stack
-    export PATH=$PATH:$ISCE_HOME/bin:$ISCE_HOME/applications:${PROJECT_ROOT}/fringe-build/bin:${PROJECT_ROOT}/snaphu-build/
-    export PYTHONPATH=$PYTHONPATH:${PROJECT_ROOT}/isce2-build/packages:${PROJECT_ROOT}/fringe-build/python:$ISCE_STACK
-    export PATH=$PATH:${PROJECT_ROOT}/isce2-build/packages/isce/applications/
-    # This needs to be last to shadow out scripts with duplicate names
-    export PATH=$PATH:$ISCE_STACK/topsStack
-    export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:${PROJECT_ROOT}/fringe-build/lib:${stdenv.cc.cc.lib}/lib/:${pkgs.lib.makeLibraryPath buildInputs}:${pkgs.stdenv.cc.cc.lib.outPath}
+    echo "#!/usr/bin/env bash" > environment.sh
+    # escape environment variable name
+    echo "export ISCE_HOME=${PROJECT_ROOT}/isce2-build" >> environment.sh
+    echo "export PATH=\$ISCE_HOME/applications:\$PATH" >> environment.sh
+    echo "export ISCE_STACK=${PROJECT_ROOT}/isce2/contrib/stack" >> environment.sh
+    echo "export PATH=\$PATH:\$ISCE_HOME/bin:\$ISCE_HOME/applications:${PROJECT_ROOT}/fringe-build/bin:${PROJECT_ROOT}/snaphu-build/" >> environment.sh
+    echo "export PYTHONPATH=\$PYTHONPATH:${PROJECT_ROOT}/isce2-build/packages:${PROJECT_ROOT}/fringe-build/python:\$ISCE_STACK" >> environment.sh
+    echo "export PATH=\$PATH:${PROJECT_ROOT}/isce2-build/packages/isce/applications/" >> environment.sh
+    echo "# This needs to be last to shadow out scripts with duplicate names" >> environment.sh
+    echo "export PATH=\$PATH:\$ISCE_STACK/topsStack" >> environment.sh
+    echo "export LD_LIBRARY_PATH=\$LD_LIBRARY_PATH:${PROJECT_ROOT}/fringe-build/lib:${stdenv.cc.cc.lib}/lib/:${pkgs.lib.makeLibraryPath buildInputs}:${pkgs.stdenv.cc.cc.lib.outPath}" >> environment.sh
+    echo "export PATH=\$PATH:`pwd`/snaphu-build" >> environment.sh
+    chmod +x environment.sh
+    source environment.sh
     ./setup.sh
     python test.py
 
@@ -86,6 +91,7 @@ in pkgs.mkShell rec {
   postShellHook = ''
     # allow pip to install wheels
     unset SOURCE_DATE_EPOCH
+    source environment.sh
   '';
 
 

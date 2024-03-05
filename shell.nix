@@ -44,6 +44,8 @@ in pkgs.mkShell rec {
     pythonPackages.setuptools
     pythonPackages.gdal
     pythonPackages.pybind11
+    pythonPackages.jupyter
+    pythonPackages.ipython
     #python311Packages.jupyterlab
     pythonPackages.ipympl
     pinnedPkgs.cmake
@@ -60,6 +62,15 @@ in pkgs.mkShell rec {
     pinnedPkgs.wget
     pinnedPkgs.screen
     pinnedPkgs.gotop
+    # For printing from jupyter
+    (pinnedPkgs.texlive.combine { inherit (texlive)
+        scheme-small latex adjustbox caption collectbox enumitem environ eurosym jknapltx
+        parskip pgf rsfs tcolorbox titling trimspaces ucs ulem upquote 
+        lastpage titlesec advdate pdfcol soul
+        collection-langgerman collection-langenglish
+    ;})
+    #pinnedPkgs.tetex
+    #pinnedPkgs.texlive.combined.scheme-full
   ];
   # Run this command, only after creating the virtual environment
   PROJECT_ROOT = builtins.getEnv "PWD";

@@ -36,4 +36,3 @@ shapely
 utm
 jupyterlab
 sentineleof
-rasterio

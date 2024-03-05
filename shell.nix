@@ -11,7 +11,7 @@
 with import <nixpkgs> { };
 let
   # For packages pinned to a specific version
-  pinnedHash = "nixos-23.11";
+  pinnedHash = "617579a787259b9a6419492eaac670a5f7663917";
   pinnedPkgs = import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/${pinnedHash}.tar.gz") { };
   pythonPackages = python3Packages;
 in pkgs.mkShell rec {
@@ -44,6 +44,7 @@ in pkgs.mkShell rec {
     pythonPackages.setuptools
     pythonPackages.gdal
     pythonPackages.pybind11
+    pythonPackages.rasterio
     #python311Packages.jupyterlab
     pythonPackages.ipympl
     pinnedPkgs.cmake

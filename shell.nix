@@ -70,10 +70,13 @@ in pkgs.mkShell rec {
     pip install -r requirements.txt
     echo "#!/usr/bin/env bash" > environment.sh
     # escape environment variable name
+    echo "export MINTPY_HOME=\$(python -c 'import site; print(site.getsitepackages()[0])')/mintpy" >> environment.sh
+    echo "export MIAPLPY_HOME=$(python -c 'import site; print(site.getsitepackages()[0])')/miaplpy" >> environment.sh
+    echo "export PATH=\$ISCE_HOME/applications:\$PATH" >> environment.sh
     echo "export ISCE_HOME=${PROJECT_ROOT}/isce2-build" >> environment.sh
     echo "export PATH=\$ISCE_HOME/applications:\$PATH" >> environment.sh
     echo "export ISCE_STACK=${PROJECT_ROOT}/isce2/contrib/stack" >> environment.sh
-    echo "export PATH=\$PATH:\$ISCE_HOME/bin:\$ISCE_HOME/applications:${PROJECT_ROOT}/fringe-build/bin:${PROJECT_ROOT}/snaphu-build/" >> environment.sh
+    echo "export PATH=\$PATH:\$ISCE_HOME/bin:\$ISCE_HOME/packages/isce/applications:${PROJECT_ROOT}/fringe-build/bin:${PROJECT_ROOT}/snaphu-build/" >> environment.sh
     echo "export PYTHONPATH=\$PYTHONPATH:${PROJECT_ROOT}/isce2-build/packages:${PROJECT_ROOT}/fringe-build/python:\$ISCE_STACK" >> environment.sh
     echo "export PATH=\$PATH:${PROJECT_ROOT}/isce2-build/packages/isce/applications/" >> environment.sh
     echo "# This needs to be last to shadow out scripts with duplicate names" >> environment.sh

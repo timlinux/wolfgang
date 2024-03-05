@@ -11,8 +11,9 @@
 with import <nixpkgs> { };
 let
   # For packages pinned to a specific version
-  pinnedHash = "933d7dc155096e7575d207be6fb7792bc9f34f6d";
-  pinnedPkgs = import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/${pinnedHash}.tar.gz") { };
+  # pinnedHash = "933d7dc155096e7575d207be6fb7792bc9f34f6d";
+  # pinnedPkgs = import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/${pinnedHash}.tar.gz") { };
+  pinnedPkgs = import (fetchTarball "https://github.com/NixOS/nixpkgs/tarball/nixos-23.11") { };
   pythonPackages = python3Packages;
 in pkgs.mkShell rec {
   name = "impurePythonEnv";

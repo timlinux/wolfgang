@@ -1,14 +1,14 @@
 #!/usr/bin/env bash
 
 # snaphu
-if [ -f snaphu-v1.4.2.tar.g ]; then
-	  echo "Snaphy File exists."
+if [ -f snaphu-v2.0.6.tar.gz ]; then
+  echo "Snaphu File exists."
 else
    mkdir -p snaphu-build/man1
-   wget http://web.stanford.edu/group/radar/softwareandlinks/sw/snaphu/snaphu-v1.4.2.tar.gz
-   tar xfz snaphu-v1.4.2.tar.gz
-   cp snaphu_makefile snaphu-v1.4.2/src/Makefile 
-   cd snaphu-v1.4.2
+   wget http://web.stanford.edu/group/radar/softwareandlinks/sw/snaphu/snaphu-v2.0.6.tar.gz
+   tar xfz snaphu-v2.0.6.tar.gz 
+   cp snaphu_makefile snaphu-v2.0.6/src/Makefile 
+   cd snaphu-v2.0.6
    cd src/
    make install
    cd ..

@@ -36,3 +36,4 @@ shapely
 utm
 jupyterlab
 sentineleof
+pyaps3

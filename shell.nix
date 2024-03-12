@@ -64,6 +64,16 @@ in pkgs.mkShell rec {
     pinnedPkgs.screen
     pinnedPkgs.gotop
     # For printing from jupyter
+    # The list after scheme-small and latex are all .sty latex
+    # modules that are needed for jupyter printing to work. 
+    # I obtained the list from this issue:
+    # https://github.com/jupyter/nbconvert/issues/1328#issue-659661022
+    # Scheme-small is a small footprint latext install. The
+    # latex schemes and the sytax for the entry below are 
+    # described here:
+    # https://nixos.wiki/wiki/TexLive
+    # To actually generate a pdf in jupyter, do
+    # File -> Save and export notebook as -> PDF
     (pinnedPkgs.texlive.combine { inherit (texlive)
         scheme-small latex adjustbox caption collectbox enumitem environ eurosym jknapltx
         parskip pgf rsfs tcolorbox titling trimspaces ucs ulem upquote 

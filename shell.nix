@@ -1,6 +1,6 @@
 #let
-#  # 
-#  # Note that I am using a specific version from NixOS here because of 
+#  #
+#  # Note that I am using a specific version from NixOS here because of
 #  # https://github.com/NixOS/nixpkgs/issues/267916#issuecomment-1817481744
 #  #
 #  nixpkgs = builtins.fetchTarball "https://github.com/NixOS/nixpkgs/archive/nixos-22.11.tar.gz";
@@ -11,7 +11,7 @@
 with import <nixpkgs> { };
 let
   # For packages pinned to a specific version
-  pinnedHash = "933d7dc155096e7575d207be6fb7792bc9f34f6d"; 
+  pinnedHash = "617579a787259b9a6419492eaac670a5f7663917";
   pinnedPkgs = import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/${pinnedHash}.tar.gz") { };
   pythonPackages = python3Packages;
 in pkgs.mkShell rec {
@@ -44,6 +44,9 @@ in pkgs.mkShell rec {
     pythonPackages.setuptools
     pythonPackages.gdal
     pythonPackages.pybind11
+    pythonPackages.rasterio
+    pythonPackages.jupyter
+    pythonPackages.ipython
     #python311Packages.jupyterlab
     pythonPackages.ipympl
     pinnedPkgs.cmake
@@ -60,11 +63,52 @@ in pkgs.mkShell rec {
     pinnedPkgs.wget
     pinnedPkgs.screen
     pinnedPkgs.gotop
+    # For printing from jupyter
+    # The list after scheme-small and latex are all .sty latex
+    # modules that are needed for jupyter printing to work. 
+    # I obtained the list from this issue:
+    # https://github.com/jupyter/nbconvert/issues/1328#issue-659661022
+    # Scheme-small is a small footprint latext install. The
+    # latex schemes and the sytax for the entry below are 
+    # described here:
+    # https://nixos.wiki/wiki/TexLive
+    # To actually generate a pdf in jupyter, do
+    # File -> Save and export notebook as -> PDF
+    (pinnedPkgs.texlive.combine { inherit (texlive)
+        scheme-small latex adjustbox caption collectbox enumitem environ eurosym jknapltx
+        parskip pgf rsfs tcolorbox titling trimspaces ucs ulem upquote 
+        lastpage titlesec advdate pdfcol soul
+        collection-langgerman collection-langenglish
+    ;})
+    #pinnedPkgs.tetex
+    #pinnedPkgs.texlive.combined.scheme-full
   ];
   # Run this command, only after creating the virtual environment
+  PROJECT_ROOT = builtins.getEnv "PWD";
+
   postVenvCreation = ''
     unset SOURCE_DATE_EPOCH
     pip install -r requirements.txt
+    echo "#!/usr/bin/env bash" > environment.sh
+    # escape environment variable name
+    echo "export MINTPY_HOME=\$(python -c 'import site; print(site.getsitepackages()[0])')/mintpy" >> environment.sh
+    echo "export MIAPLPY_HOME=$(python -c 'import site; print(site.getsitepackages()[0])')/miaplpy" >> environment.sh
+    echo "export PATH=\$ISCE_HOME/applications:\$PATH" >> environment.sh
+    echo "export ISCE_HOME=${PROJECT_ROOT}/isce2-build" >> environment.sh
+    echo "export PATH=\$ISCE_HOME/applications:\$PATH" >> environment.sh
+    echo "export ISCE_STACK=${PROJECT_ROOT}/isce2/contrib/stack" >> environment.sh
+    echo "export PATH=\$PATH:\$ISCE_HOME/bin:\$ISCE_HOME/packages/isce/applications:${PROJECT_ROOT}/fringe-build/bin:${PROJECT_ROOT}/snaphu-build/" >> environment.sh
+    echo "export PYTHONPATH=\$PYTHONPATH:${PROJECT_ROOT}/isce2-build/packages:${PROJECT_ROOT}/fringe-build/python:\$ISCE_STACK" >> environment.sh
+    echo "export PATH=\$PATH:${PROJECT_ROOT}/isce2-build/packages/isce/applications/" >> environment.sh
+    echo "# This needs to be last to shadow out scripts with duplicate names" >> environment.sh
+    echo "export PATH=\$PATH:\$ISCE_STACK/topsStack" >> environment.sh
+    echo "export LD_LIBRARY_PATH=\$LD_LIBRARY_PATH:${PROJECT_ROOT}/fringe-build/lib:${stdenv.cc.cc.lib}/lib/:${pkgs.lib.makeLibraryPath buildInputs}:${pkgs.stdenv.cc.cc.lib.outPath}" >> environment.sh
+    echo "export PATH=\$PATH:`pwd`/snaphu-build" >> environment.sh
+    chmod +x environment.sh
+    source environment.sh
+    ./setup.sh
+    python test.py
+
   '';
 
   # Now we can execute any commands within the virtual environment.
@@ -72,22 +116,8 @@ in pkgs.mkShell rec {
   postShellHook = ''
     # allow pip to install wheels
     unset SOURCE_DATE_EPOCH
+    source environment.sh
   '';
 
-  PROJECT_ROOT = builtins.getEnv "PWD";
-
-  shellHook = ''
-    # Make sure you have run setup.sh the first time you install 
-    export ISCE_HOME=${PROJECT_ROOT}/isce2-build
-    export PATH=$ISCE_HOME/applications:$PATH
-    export PATH=$PATH:$ISCE_HOME/bin:$ISCE_HOME/applications:${PROJECT_ROOT}/fringe-build/bin:${PROJECT_ROOT}/snaphu-build/
-    export PYTHONPATH=$PYTHONPATH:${PROJECT_ROOT}/isce2-build/packages:${PROJECT_ROOT}/fringe-build/python
-    export PATH=$PATH:${PROJECT_ROOT}/isce2-build/packages/isce/applications/
-    # This needs to be last to shadow out scripts with duplicate names
-    export PATH=$PATH:${PROJECT_ROOT}/isce2/contrib/stack/stripmapStack
-    export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:${PROJECT_ROOT}/fringe-build/lib
-    ./setup.sh
-    python test.py
-  '';
 
 }

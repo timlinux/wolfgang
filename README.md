@@ -54,7 +54,7 @@ Currently does not work.
 
 You can start the notebook like this:
 
-``jupyter notebook``
+``jupyter-lab``
 
 It will open your browser with a jupyter environment.
 

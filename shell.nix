@@ -38,6 +38,7 @@ in pkgs.mkShell rec {
     pinnedPkgs.libzip
     pinnedPkgs.zlib
     pinnedPkgs.gnused
+    pinnedPkgs.moreutils
     pythonPackages.pip
     pythonPackages.cython
     pythonPackages.numpy

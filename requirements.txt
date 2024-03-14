@@ -16,7 +16,7 @@ h5py
 joblib
 lxml
 matplotlib
-mintpy
+mintpy==1.5.3
 # MinSAR dependencies
 natsort
 numpy

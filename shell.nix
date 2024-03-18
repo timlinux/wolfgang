@@ -102,7 +102,6 @@ in pkgs.mkShell rec {
     echo "export PYTHONPATH=\$PYTHONPATH:${PROJECT_ROOT}/isce2-build/packages:${PROJECT_ROOT}/fringe-build/python:\$ISCE_STACK" >> environment.sh
     echo "export PATH=\$PATH:${PROJECT_ROOT}/isce2-build/packages/isce/applications/" >> environment.sh
     echo "# This needs to be last to shadow out scripts with duplicate names" >> environment.sh
-    echo "export PATH=\$PATH:\$ISCE_STACK/topsStack" >> environment.sh
     echo "export LD_LIBRARY_PATH=\$LD_LIBRARY_PATH:${PROJECT_ROOT}/fringe-build/lib:${stdenv.cc.cc.lib}/lib/:${pkgs.lib.makeLibraryPath buildInputs}:${pkgs.stdenv.cc.cc.lib.outPath}" >> environment.sh
     echo "export PATH=\$PATH:`pwd`/snaphu-build" >> environment.sh
     chmod +x environment.sh

@@ -35,3 +35,15 @@ setuptools
 shapely
 utm
 jupyterlab
+sentineleof
+rasterio
+# Jupyter lab extensions
+# Icon to hide all code blocks - do before making a pdf
+jupyterlab-hide-code
+# AI assistant
+ai-einblick-prompt
+# For showing maps in a notebook
+folium
+geopandas
+# For autocomplete
+jedi

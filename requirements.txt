@@ -16,7 +16,7 @@ h5py
 joblib
 lxml
 matplotlib
-mintpy
+mintpy==1.5.3
 # MinSAR dependencies
 natsort
 numpy
@@ -37,6 +37,7 @@ utm
 jupyterlab
 sentineleof
 rasterio
+pyaps3
 # Jupyter lab extensions
 # Icon to hide all code blocks - do before making a pdf
 jupyterlab-hide-code

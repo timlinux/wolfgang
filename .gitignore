@@ -161,3 +161,4 @@ jupyterhub.sqlite
 jupyterhub_config.py
 jupyterhub_cookie_secret
 shell.nix_
+environment.sh

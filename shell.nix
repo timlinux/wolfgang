@@ -81,6 +81,7 @@ in pkgs.mkShell rec {
         lastpage titlesec advdate pdfcol soul
         collection-langgerman collection-langenglish
     ;})
+    pinnedPkgs.pandoc
     #pinnedPkgs.tetex
     #pinnedPkgs.texlive.combined.scheme-full
   ];

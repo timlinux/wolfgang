@@ -4,6 +4,13 @@
 
 ### Setup - easy way
 
+Make sure you have direnv installed and that in your ``.bash_profile`` you have the following line:
+
+```
+eval "$(direnv hook bash)"
+
+```
+
 Use NixOS and nix-direnv
 cd into this folder
 do ``direnv allow``

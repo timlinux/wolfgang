@@ -64,6 +64,7 @@ in pkgs.mkShell rec {
     pinnedPkgs.wget
     pinnedPkgs.screen
     pinnedPkgs.gotop
+    pinnedPkgs.pandoc
     # For printing from jupyter
     # The list after scheme-small and latex are all .sty latex
     # modules that are needed for jupyter printing to work. 

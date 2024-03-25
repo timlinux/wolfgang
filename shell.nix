@@ -64,6 +64,8 @@ in pkgs.mkShell rec {
     pinnedPkgs.wget
     pinnedPkgs.screen
     pinnedPkgs.gotop
+    pinnedPkgs.pandoc
+    pinnedPkgs.pigz
     # For printing from jupyter
     # The list after scheme-small and latex are all .sty latex
     # modules that are needed for jupyter printing to work. 
@@ -100,7 +102,7 @@ in pkgs.mkShell rec {
     echo "export PATH=\$ISCE_HOME/applications:\$PATH" >> environment.sh
     echo "export ISCE_STACK=${PROJECT_ROOT}/isce2/contrib/stack" >> environment.sh
     echo "export PATH=\$PATH:\$ISCE_HOME/bin:\$ISCE_HOME/packages/isce/applications:${PROJECT_ROOT}/fringe-build/bin:${PROJECT_ROOT}/snaphu-build/" >> environment.sh
-    echo "export PYTHONPATH=\$PYTHONPATH:${PROJECT_ROOT}/isce2-build/packages:${PROJECT_ROOT}/fringe-build/python:\$ISCE_STACK" >> environment.sh
+    echo "export PYTHONPATH=\$PYTHONPATH:${PROJECT_ROOT}/isce2-build/packages:${PROJECT_ROOT}/fringe-build/python:\$ISCE_STACK:\$ISCE_HOME:\$ISCE_HOME/packages/isce2/components" >> environment.sh
     echo "export PATH=\$PATH:${PROJECT_ROOT}/isce2-build/packages/isce/applications/" >> environment.sh
     echo "# This needs to be last to shadow out scripts with duplicate names" >> environment.sh
 

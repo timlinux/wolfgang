@@ -26,4 +26,6 @@
     vim
     direnv
   ];
+  networking.firewall.allowedTCPPorts = [ 8888 ];
+  networking.firewall.allowedUDPPorts = [ 8888 ];
 }

@@ -54,7 +54,9 @@ Currently does not work.
 
 You can start the notebook like this:
 
-``jupyter-lab``
+``jupyter-lab --no-browser --ip=<server-ip>``
+
+Or on local environment, omit `--ip` option to run in localhost.
 
 It will open your browser with a jupyter environment.
 

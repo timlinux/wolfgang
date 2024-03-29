@@ -39,6 +39,7 @@ in pkgs.mkShell rec {
     pinnedPkgs.zlib
     pinnedPkgs.gnused
     pinnedPkgs.moreutils
+    pinnedPkgs.unzip
     pythonPackages.pip
     pythonPackages.cython
     pythonPackages.numpy
@@ -48,6 +49,7 @@ in pkgs.mkShell rec {
     pythonPackages.rasterio
     pythonPackages.jupyter
     pythonPackages.ipython
+    pythonPackages.webdavclient3
     #python311Packages.jupyterlab
     pythonPackages.ipympl
     pinnedPkgs.cmake

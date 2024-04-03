@@ -38,8 +38,10 @@ in pkgs.mkShell rec {
     pinnedPkgs.libzip
     pinnedPkgs.zlib
     pinnedPkgs.gnused
+    pinnedPkgs.parallel
     pinnedPkgs.moreutils
     pinnedPkgs.unzip
+    pinnedPkgs.zip
     pythonPackages.pip
     pythonPackages.cython
     pythonPackages.numpy

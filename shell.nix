@@ -52,6 +52,7 @@ in pkgs.mkShell rec {
     pythonPackages.jupyter
     pythonPackages.ipython
     pythonPackages.webdavclient3
+    pythonPackages.relatorio
     #python311Packages.jupyterlab
     pythonPackages.ipympl
     pinnedPkgs.cmake

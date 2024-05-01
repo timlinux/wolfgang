@@ -53,7 +53,8 @@ in pkgs.mkShell rec {
     pythonPackages.ipython
     pythonPackages.webdavclient3
     pythonPackages.relatorio
-    #python311Packages.jupyterlab
+    python311Packages.google-api-python-client
+    python311Packages.oauth2client
     pythonPackages.ipympl
     pinnedPkgs.cmake
     pinnedPkgs.pkg-config

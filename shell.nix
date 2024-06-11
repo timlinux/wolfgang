@@ -42,6 +42,7 @@ in pkgs.mkShell rec {
     pinnedPkgs.moreutils
     pinnedPkgs.unzip
     pinnedPkgs.zip
+    pinnedPkgs.qt5Full
     pythonPackages.pip
     pythonPackages.cython
     pythonPackages.numpy

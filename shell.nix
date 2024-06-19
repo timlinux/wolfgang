@@ -42,6 +42,7 @@ in pkgs.mkShell rec {
     pinnedPkgs.moreutils
     pinnedPkgs.unzip
     pinnedPkgs.zip
+    pinnedPkgs.qt5Full
     pythonPackages.pip
     pythonPackages.cython
     pythonPackages.numpy
@@ -53,6 +54,8 @@ in pkgs.mkShell rec {
     pythonPackages.ipython
     pythonPackages.webdavclient3
     pythonPackages.relatorio
+    pythonPackages.geopandas
+    pythonPackages.watchdog
     python311Packages.google-api-python-client
     python311Packages.oauth2client
     pythonPackages.ipympl

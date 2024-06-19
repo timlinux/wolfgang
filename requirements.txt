@@ -48,6 +48,3 @@ folium
 geopandas==0.14.3
 # For autocomplete
 jedi
-
-# For filewatcher
-watchdog==4.0.1

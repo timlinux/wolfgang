@@ -55,6 +55,7 @@ in pkgs.mkShell rec {
     pythonPackages.webdavclient3
     pythonPackages.relatorio
     pythonPackages.geopandas
+    pythonPackages.watchdog
     python311Packages.google-api-python-client
     python311Packages.oauth2client
     pythonPackages.ipympl

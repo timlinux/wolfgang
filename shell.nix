@@ -42,6 +42,8 @@ in pkgs.mkShell rec {
     pinnedPkgs.moreutils
     pinnedPkgs.unzip
     pinnedPkgs.zip
+    pinnedPkgs.qt5Full
+    pinnedPkgs.hcloud
     pythonPackages.pip
     pythonPackages.cython
     pythonPackages.numpy
@@ -53,9 +55,14 @@ in pkgs.mkShell rec {
     pythonPackages.ipython
     pythonPackages.webdavclient3
     pythonPackages.relatorio
-    python311Packages.google-api-python-client
-    python311Packages.oauth2client
+    pythonPackages.geopandas
+    pythonPackages.watchdog
+    pythonPackages.psutil
+    pythonPackages.django
+    pythonPackages.psycopg2
+    pythonPackages.python-dotenv
     pythonPackages.ipympl
+    pythonPackages.shapely
     pinnedPkgs.cmake
     pinnedPkgs.pkg-config
     pinnedPkgs.xorg.libX11
@@ -99,6 +106,7 @@ in pkgs.mkShell rec {
   postVenvCreation = ''
     unset SOURCE_DATE_EPOCH
     pip install -r requirements.txt
+    mkdir -p SAR_SMM
     echo "#!/usr/bin/env bash" > environment.sh
     # escape environment variable name
     echo "export MINTPY_HOME=\$(python -c 'import site; print(site.getsitepackages()[0])')/mintpy" >> environment.sh
@@ -108,7 +116,7 @@ in pkgs.mkShell rec {
     echo "export PATH=\$ISCE_HOME/applications:\$PATH" >> environment.sh
     echo "export ISCE_STACK=${PROJECT_ROOT}/isce2/contrib/stack" >> environment.sh
     echo "export PATH=\$PATH:\$ISCE_HOME/bin:\$ISCE_HOME/packages/isce/applications:${PROJECT_ROOT}/fringe-build/bin:${PROJECT_ROOT}/snaphu-build/" >> environment.sh
-    echo "export PYTHONPATH=\$PYTHONPATH:${PROJECT_ROOT}/isce2-build/packages:${PROJECT_ROOT}/fringe-build/python:\$ISCE_STACK:\$ISCE_HOME:\$ISCE_HOME/packages/isce2/components" >> environment.sh
+    echo "export PYTHONPATH=\$PYTHONPATH:${PROJECT_ROOT}/isce2-build/packages:${PROJECT_ROOT}/fringe-build/python:\$ISCE_STACK:\$ISCE_HOME:\$ISCE_HOME/packages/isce2/components:${PROJECT_ROOT}/SAR_SMM" >> environment.sh
     echo "export PATH=\$PATH:${PROJECT_ROOT}/isce2-build/packages/isce/applications/" >> environment.sh
     echo "# This needs to be last to shadow out scripts with duplicate names" >> environment.sh
 

@@ -43,7 +43,6 @@ in pkgs.mkShell rec {
     pinnedPkgs.unzip
     pinnedPkgs.zip
     pinnedPkgs.qt5Full
-    pinnedPkgs.geos
     pinnedPkgs.hcloud
     pythonPackages.pip
     pythonPackages.cython
@@ -63,6 +62,7 @@ in pkgs.mkShell rec {
     pythonPackages.psycopg2
     pythonPackages.python-dotenv
     pythonPackages.ipympl
+    pythonPackages.shapely
     pinnedPkgs.cmake
     pinnedPkgs.pkg-config
     pinnedPkgs.xorg.libX11

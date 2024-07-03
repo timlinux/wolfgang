@@ -32,7 +32,6 @@ rich
 scikit-image==0.22.0
 scipy
 setuptools
-shapely==2.0.3
 utm
 jupyterlab
 sentineleof

@@ -48,3 +48,5 @@ folium
 geopandas==0.14.3
 # For autocomplete
 jedi
+
+utm==0.7.0

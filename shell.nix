@@ -62,7 +62,6 @@ in pkgs.mkShell rec {
     pythonPackages.django
     pythonPackages.psycopg2
     pythonPackages.python-dotenv
-    pythonPackages.pyogrio
     pythonPackages.ipympl
     pinnedPkgs.cmake
     pinnedPkgs.pkg-config

@@ -63,6 +63,10 @@ in pkgs.mkShell rec {
     pythonPackages.python-dotenv
     pythonPackages.ipympl
     pythonPackages.shapely
+    pythonPackages.beautifulsoup4
+    pythonPackages.xmltodict
+    pythonPackages.resend
+    pythonPackages.sentry-sdk
     pinnedPkgs.cmake
     pinnedPkgs.pkg-config
     pinnedPkgs.xorg.libX11

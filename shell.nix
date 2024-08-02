@@ -44,6 +44,7 @@ in pkgs.mkShell rec {
     pinnedPkgs.zip
     pinnedPkgs.qt5Full
     pinnedPkgs.hcloud
+    pinnedPkgs.poppler-utils
     pythonPackages.pip
     pythonPackages.cython
     pythonPackages.numpy

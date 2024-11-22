@@ -50,3 +50,4 @@ jedi
 
 utm==0.7.0
 pyogrio==0.9.0
+cdsapi==0.7.4

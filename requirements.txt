@@ -3,7 +3,7 @@
 # gdal>=3     # for ISCE, ARIA, FRInGE, HyP3, GMTSAR users
 #isce2
 argcomplete==3.2.3
-bokeh==3.4.0
+bokeh==3.8.2
 boto3==1.34.79
 botocore==1.34.79
 Cartopy==0.22.0
